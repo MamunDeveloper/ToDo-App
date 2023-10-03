@@ -28,9 +28,13 @@ function Todo({ title, description, id, deleteTask }) {
           <div className={style.boxes}> <p> {description} </p></div>
         </>
       }
+
+      {/* Arrow icon */}
       {
         !taskBox && <FontAwesomeIcon onClick={changeView} icon={faUpDown} className={style.arrow_icons} />
       }
+
+      {/* Complete and delete icons  */}
       <div className={style.boxes} id={style.icons_box}>
 
         {
@@ -39,6 +43,8 @@ function Todo({ title, description, id, deleteTask }) {
 
         <FontAwesomeIcon className={style.function_icons} id={style.delete_icon} icon={faTrash} onClick={handleDeleteButton} />
       </div>
+
+      {/* Arrow icon */}
       {
         taskBox && <FontAwesomeIcon onClick={changeView} icon={faUpDown} className={style.arrow_icons} />
       }

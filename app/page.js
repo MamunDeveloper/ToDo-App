@@ -20,7 +20,7 @@ export default function Home() {
   // Adding a new task
   const addTask = (task) => {
     task.id = tasksList.length + 1;
-    setTasksList([...tasksList, task]);
+    setTasksList([task, ...tasksList]);
   };
 
   return (
