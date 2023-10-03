@@ -22,7 +22,7 @@ function Todo({ title, description, id, deleteTask }) {
 
   return (
     <div className={taskBox ? style.show_detail : style.hide_detail}>
-      <div className={style.boxes}>{title}</div>
+      <div className={style.boxes} id={style.title_box}>{title}</div>
       {view &&
         <>
           <div className={style.boxes}> <p> {description} </p></div>
@@ -31,7 +31,7 @@ function Todo({ title, description, id, deleteTask }) {
       {
         !taskBox && <FontAwesomeIcon onClick={changeView} icon={faUpDown} className={style.arrow_icons} />
       }
-      <div className={style.boxes}>
+      <div className={style.boxes} id={style.icons_box}>
 
         {
           taskCompleted ? <FontAwesomeIcon className={style.function_icons} icon={faSquareCheck} /> : <FontAwesomeIcon className={style.function_icons} id={style.cheackBox_icon} icon={faSquare} onClick={handleTaskComplete} />

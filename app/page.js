@@ -3,10 +3,12 @@ import styles from "./page.module.css";
 import Todo from "./components/todo";
 import tasks from "./data/tasks";
 import { useState } from "react";
+import Form from "./components/form";
 
 export default function Home() {
   const [tasksList, setTasksList] = useState(tasks);
 
+  // Deleting a task by its "id"
   const deleteTask = (id) => {
     let newTasksList = tasksList.filter((item) => {
       return item.id != id;
@@ -15,53 +17,15 @@ export default function Home() {
     console.log(newTasksList);
   };
 
-  // Creating a new task object
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [task, setTask] = useState({
-    id: 0,
-    title: "",
-    description: "",
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setTask((task.id = tasksList.length + 1));
-    setTask((task.title = title));
-    setTask((task.description = description));
+  // Adding a new task
+  const addTask = (task) => {
+    task.id = tasksList.length + 1;
     setTasksList([...tasksList, task]);
-    setTask({
-      title: "",
-      description: "",
-    });
-    setTitle("");
-    setDescription("");
   };
 
   return (
     <main className={styles.main}>
-      <input
-        type="text"
-        name="title"
-        id="titleBox"
-        className="inps"
-        placeholder="Enter task"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <input
-        type="text"
-        name="description"
-        id="descriptionBox"
-        className="inps"
-        placeholder="Enter Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <button className="addBtn" onClick={handleSubmit}>
-        Add
-      </button>
-
+      <Form addTask={addTask}></Form>
       {tasksList.map((todo) => (
         <Todo
           id={todo.id}

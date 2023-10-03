@@ -1,14 +1,4 @@
-.hide_detail {
-  display: flex;
-  justify-content: space-around;
-}
-.show_detail {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
-
+/* For show and hidden state of task */
 .hide_detail,
 .show_detail {
   background: black;
@@ -16,13 +6,49 @@
   border: 2px solid #0cbdc5;
   padding: 7px;
   margin: 1rem 0;
+  border-radius: 8px;
 }
+
+.hide_detail {
+  display: flex;
+  justify-content: space-around;
+}
+.hide_detail .boxes {
+  width: 50%;
+}
+
+.hide_detail #title_box,
+#icons_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.show_detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.show_detail #title_box {
+  color: red;
+  margin-bottom: 1rem;
+}
+
+/* Arrow Icons */
 .arrow_icons {
   color: #099199;
-  position: relative;
-  top: 19px;
   height: 23px;
 }
+.hide_detail .arrow_icons {
+  margin: auto;
+}
+.show_detail .arrow_icons {
+  position: relative;
+  top: 19px;
+}
+
+/* Functions Icons */
 .function_icons {
   margin-left: 18px;
   width: 15px;
