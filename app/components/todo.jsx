@@ -21,7 +21,10 @@ function Todo({ title, description, id, deleteTask }) {
   };
 
   return (
-    <div className={taskBox ? style.show_detail : style.hide_detail}>
+    <div className={taskBox ? style.show_detail : style.hide_detail}
+      animate={{ scale: 1 }}
+      transition={{ duration: 2 }}
+    >
       <div className={style.boxes} id={style.title_box}>{title}</div>
       {view &&
         <>

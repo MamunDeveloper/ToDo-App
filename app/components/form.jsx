@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion } from 'framer-motion';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import style from '@/app/styles/form.module.css'
 import { useState } from "react";
@@ -28,7 +29,11 @@ function Form({ addTask }) {
     };
 
     return (
-        <form className={style.form_box}>
+        <motion.form className={style.form_box}
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+        >
             <input
                 type="text"
                 name="title"
@@ -38,10 +43,10 @@ function Form({ addTask }) {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
             />
-            <input
+            <textarea
                 type="text"
                 name="description"
-                id="descriptionBox"
+                id={style.descriptionBox}
                 className={style.inps}
                 placeholder="Enter Description"
                 value={description}
@@ -50,7 +55,7 @@ function Form({ addTask }) {
             <button className={style.addBtn} onClick={handleSubmit}>
                 Add
             </button>
-        </form>
+        </motion.form>
     )
 }
 

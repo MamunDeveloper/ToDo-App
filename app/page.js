@@ -4,9 +4,11 @@ import Todo from "./components/todo";
 import tasks from "./data/tasks";
 import { useState } from "react";
 import Form from "./components/form";
+import Navbar from "./components/navbar";
 
 export default function Home() {
   const [tasksList, setTasksList] = useState(tasks);
+  const [showingFrom, setShowingFrom] = useState(false);
 
   // Deleting a task by its "id"
   const deleteTask = (id) => {
@@ -21,11 +23,17 @@ export default function Home() {
   const addTask = (task) => {
     task.id = tasksList.length + 1;
     setTasksList([task, ...tasksList]);
+    setShowingFrom(!showingFrom);
   };
+
+  function toggleForm() {
+    setShowingFrom(!showingFrom);
+    console.log(showingFrom);
+  }
 
   return (
     <main className={styles.main}>
-      <Form addTask={addTask}></Form>
+      {showingFrom && <Form addTask={addTask}></Form>}
       {tasksList.map((todo) => (
         <Todo
           id={todo.id}
@@ -35,6 +43,7 @@ export default function Home() {
           deleteTask={deleteTask}
         ></Todo>
       ))}
+      <Navbar toggleForm={toggleForm}></Navbar>
     </main>
   );
 }
