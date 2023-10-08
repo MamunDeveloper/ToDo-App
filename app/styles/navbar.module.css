@@ -1,4 +1,5 @@
 .navbar {
+  background-color: black;
   border: 2px solid #00ffea;
   border-radius: 4px;
   width: 99%;
@@ -20,6 +21,11 @@
   height: 25px;
   width: 25px;
 }
+
+#user_icon {
+  height: 20px;
+}
+
 @media screen and (max-width: 700px) {
   .navbar {
     left: 3px;
