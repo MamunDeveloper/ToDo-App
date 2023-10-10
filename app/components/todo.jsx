@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import style from "@/app/styles/todo.module.css";
+import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faUpDown, faSquare, faSquareCheck } from "@fortawesome/free-solid-svg-icons";
 
@@ -8,22 +9,28 @@ function Todo({ title, description, id, deleteTask }) {
   const [view, setView] = useState(false);
   const [taskBox, setTaskBox] = useState(false)
   const [taskCompleted, setTaskCompleted] = useState(false)
+  const [taskDeleted, setTaskDeleted] = useState(false)
 
   const changeView = () => {
     setView(!view);
     setTaskBox(!taskBox)
   };
   const handleDeleteButton = () => {
-    deleteTask(id);
+    setTaskDeleted(!taskDeleted)
+    setTimeout(() => {
+      deleteTask(id);
+    }, 500)
   };
+
   const handleTaskComplete = () => {
     setTaskCompleted(true)
   };
 
   return (
-    <div className={taskBox ? style.show_detail : style.hide_detail}
-      animate={{ scale: 1 }}
-      transition={{ duration: 2 }}
+    <motion.div className={taskBox ? style.show_detail : style.hide_detail}
+      drag="y"
+      animate={{ x: taskDeleted ? "-110vw" : 0 }}
+      transition={{ duration: 0.5 }}
     >
       <div className={style.boxes} id={style.title_box}>{title}</div>
       {view &&
@@ -52,7 +59,7 @@ function Todo({ title, description, id, deleteTask }) {
         taskBox && <FontAwesomeIcon onClick={changeView} icon={faUpDown} className={style.arrow_icons} />
       }
 
-    </div>
+    </motion.div>
   );
 }
 

@@ -9,6 +9,7 @@ import Navbar from "./components/navbar";
 export default function Home() {
   const [tasksList, setTasksList] = useState(tasks);
   const [showingFrom, setShowingFrom] = useState(false);
+  const [rotateAddIcon, setRotateAddIcon] = useState(false);
 
   // Deleting a task by its "id"
   const deleteTask = (id) => {
@@ -19,21 +20,25 @@ export default function Home() {
     console.log(newTasksList);
   };
 
-  // Adding a new task
+  // Adding a new task and toggling add icon
   const addTask = (task) => {
     task.id = tasksList.length + 1;
     setTasksList([task, ...tasksList]);
     setShowingFrom(!showingFrom);
+    setRotateAddIcon(!rotateAddIcon);
   };
 
+  // Showing form and toggling add icon
   function toggleForm() {
     setShowingFrom(!showingFrom);
-    console.log(showingFrom);
+    setRotateAddIcon(!rotateAddIcon);
   }
 
   return (
     <main className={styles.main}>
-      {showingFrom && <Form addTask={addTask}></Form>}
+      <div className={styles.form_section}>
+        {showingFrom && <Form addTask={addTask}></Form>}
+      </div>
       {tasksList.map((todo) => (
         <Todo
           id={todo.id}
@@ -43,7 +48,7 @@ export default function Home() {
           deleteTask={deleteTask}
         ></Todo>
       ))}
-      <Navbar toggleForm={toggleForm}></Navbar>
+      <Navbar toggleForm={toggleForm} rotateAddIcon={rotateAddIcon}></Navbar>
     </main>
   );
 }
