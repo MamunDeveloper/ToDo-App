@@ -5,10 +5,12 @@ import tasks from "./data/tasks";
 import { useState } from "react";
 import Form from "./components/form";
 import Navbar from "./components/navbar";
+import LoginPage from "./components/loginPage";
 
 export default function Home() {
   const [tasksList, setTasksList] = useState(tasks);
   const [showingFrom, setShowingFrom] = useState(false);
+  const [showingLoginPage, setShowingLoginPage] = useState(false);
   const [rotateAddIcon, setRotateAddIcon] = useState(false);
 
   // Deleting a task by its "id"
@@ -17,13 +19,14 @@ export default function Home() {
       return item.id != id;
     });
     setTasksList(newTasksList);
-    console.log(newTasksList);
   };
 
   // Adding a new task and toggling add icon
   const addTask = (task) => {
     task.id = tasksList.length + 1;
     setTasksList([task, ...tasksList]);
+    setShowingFrom(!showingFrom);
+    setRotateAddIcon(!rotateAddIcon);
     setShowingFrom(!showingFrom);
     setRotateAddIcon(!rotateAddIcon);
   };
@@ -34,11 +37,13 @@ export default function Home() {
     setRotateAddIcon(!rotateAddIcon);
   }
 
+  function toggleLogin() {
+    setShowingLoginPage(!showingLoginPage);
+  }
+
   return (
     <main className={styles.main}>
-      <div className={styles.form_section}>
-        {showingFrom && <Form addTask={addTask}></Form>}
-      </div>
+      <Form showingFrom={showingFrom} addTask={addTask}></Form>
       {tasksList.map((todo) => (
         <Todo
           id={todo.id}
@@ -48,7 +53,15 @@ export default function Home() {
           deleteTask={deleteTask}
         ></Todo>
       ))}
-      <Navbar toggleForm={toggleForm} rotateAddIcon={rotateAddIcon}></Navbar>
+      <Navbar
+        toggleForm={toggleForm}
+        toggleLogin={toggleLogin}
+        rotateAddIcon={rotateAddIcon}
+      ></Navbar>
+      <LoginPage
+        showingLoginPage={showingLoginPage}
+        toggleLogin={toggleLogin}
+      ></LoginPage>
     </main>
   );
 }

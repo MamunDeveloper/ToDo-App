@@ -1,10 +1,10 @@
 import React from 'react'
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import style from '@/app/styles/form.module.css'
 import { useState } from "react";
 
-function Form({ addTask }) {
+function Form({ addTask, showingFrom }) {
     let initialObject =
     {
         id: 0,
@@ -29,34 +29,42 @@ function Form({ addTask }) {
     };
 
     return (
-        <motion.form className={style.form_box}
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0 }}
-            transition={{ duration: 0.5, type: "spring", damping: 10, }}
-        >
-            <input
-                type="text"
-                name="title"
-                id="titleBox"
-                className={style.inps}
-                placeholder="Enter task"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-            />
-            <textarea
-                type="text"
-                name="description"
-                id={style.descriptionBox}
-                className={style.inps}
-                placeholder="Enter Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-            />
-            <button className={style.addBtn} onClick={handleSubmit}>
-                Add
-            </button>
-        </motion.form>
+        <AnimatePresence>
+            {showingFrom &&
+                <div className={style.form_section}>
+                    <motion.form className={style.form_box}
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        exit={{ scale: 0, transition: { type: "tween" } }}
+                        transition={{ duration: 0.5, type: "spring", damping: 10, }}
+                    >
+                        <input
+                            type="text"
+                            name="title"
+                            id="titleBox"
+                            className={style.inps}
+                            placeholder="Enter task"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                        <textarea
+                            type="text"
+                            name="description"
+                            id={style.descriptionBox}
+                            className={style.inps}
+                            placeholder="Enter Description"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                        <motion.button className={style.addBtn} onClick={handleSubmit} whileHover={{ scale: 1.1 }} >
+                            Add
+                        </motion.button>
+                    </motion.form>
+                </div>
+            }
+        </AnimatePresence>
+
+
     )
 }
 
