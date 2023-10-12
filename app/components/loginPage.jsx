@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import style from "@/app/styles/loginPage.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faEye,
+  faEyeSlash,
+  faLock,
+} from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
 function LoginPage({ showingLoginPage, toggleLogin }) {
+  const [showPassword, setShowPassword] = useState(false);
+
   function handleSubmit(e) {
     e.preventDefault();
     toggleLogin();
@@ -38,7 +45,7 @@ function LoginPage({ showingLoginPage, toggleLogin }) {
                 icon={faEnvelope}
               ></FontAwesomeIcon>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 className={style.inps}
                 name=""
                 id="password_inp"
@@ -48,22 +55,33 @@ function LoginPage({ showingLoginPage, toggleLogin }) {
               />
               <FontAwesomeIcon
                 className={style.login_form_icons}
-                icon={faLock}
+                icon={showPassword ? faEye : faEyeSlash}
+                onClick={() => setShowPassword(!showPassword)}
               ></FontAwesomeIcon>
               <motion.button
-                onClick={handleSubmit}
                 className={style.logIn_btn}
                 whileHover={{
                   scale: 1.1,
-                  backgroundColor: "rgb(135, 206, 235)",
-                  color: "rgb(8, 8, 22)",
+                  backgroundColor: "rgb(0, 0, 0)",
+                  color: "rgb(135, 206, 235)",
                 }}
+                onClick={handleSubmit}
               >
                 Log in
               </motion.button>
               <div className={style.new_account_box}>
                 <Link href="#">Create a new account</Link> or{" "}
-                <motion.button className={style.signUp_btn}>Sign Up</motion.button>
+                <motion.button
+                  className={style.signUp_btn}
+                  whileHover={{
+                    scale: 1.1,
+                    backgroundColor: "rgb(0, 0, 0)",
+                    color: "rgb(135, 206, 235)",
+                  }}
+                  onClick={handleSubmit}
+                >
+                  Sign Up
+                </motion.button>
               </div>
             </form>
           </motion.div>

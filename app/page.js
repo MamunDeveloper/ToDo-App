@@ -44,15 +44,17 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Form showingFrom={showingFrom} addTask={addTask}></Form>
-      {tasksList.map((todo) => (
-        <Todo
-          id={todo.id}
-          key={todo.id}
-          title={todo.title}
-          description={todo.description}
-          deleteTask={deleteTask}
-        ></Todo>
-      ))}
+      <div className={styles.task_box} >
+        {tasksList.map((todo) => (
+          <Todo
+            id={todo.id}
+            key={todo.id}
+            title={todo.title}
+            description={todo.description}
+            deleteTask={deleteTask}
+          ></Todo>
+        ))}
+      </div>
       <Navbar
         toggleForm={toggleForm}
         toggleLogin={toggleLogin}
