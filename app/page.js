@@ -12,6 +12,7 @@ export default function Home() {
   const [showingFrom, setShowingFrom] = useState(false);
   const [showingLoginPage, setShowingLoginPage] = useState(false);
   const [rotateAddIcon, setRotateAddIcon] = useState(false);
+  const [loginIconClicked, setLoginIconClicked] = useState(false);
 
   // Deleting a task by its "id"
   const deleteTask = (id) => {
@@ -39,12 +40,13 @@ export default function Home() {
 
   function toggleLogin() {
     setShowingLoginPage(!showingLoginPage);
+    setLoginIconClicked(!loginIconClicked);
   }
 
   return (
     <main className={styles.main}>
       <Form showingFrom={showingFrom} addTask={addTask}></Form>
-      <div className={styles.task_box} >
+      <div className={styles.task_box}>
         {tasksList.map((todo) => (
           <Todo
             id={todo.id}
@@ -59,6 +61,7 @@ export default function Home() {
         toggleForm={toggleForm}
         toggleLogin={toggleLogin}
         rotateAddIcon={rotateAddIcon}
+        loginIconClicked={loginIconClicked}
       ></Navbar>
       <LoginPage
         showingLoginPage={showingLoginPage}

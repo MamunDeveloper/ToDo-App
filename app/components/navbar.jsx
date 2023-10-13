@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import logo from "@/app/images/logo.png";
 
-function Navbar({ toggleForm, toggleLogin, rotateAddIcon }) {
+function Navbar({ toggleForm, toggleLogin, rotateAddIcon, loginIconClicked }) {
   function handleclick() {
     toggleForm();
   }
@@ -34,14 +34,18 @@ function Navbar({ toggleForm, toggleLogin, rotateAddIcon }) {
           onClick={handleclick}
         ></FontAwesomeIcon>
       </motion.li>
-      <li>
+      <motion.li
+        animate={{
+          color: loginIconClicked ? "rgb(255, 0, 0)" : "rgb(255, 255, 255)",
+        }}
+      >
         <FontAwesomeIcon
           id={style.user_icon}
           className={style.nav_icons}
           icon={faUserAlt}
           onClick={() => toggleLogin()}
         ></FontAwesomeIcon>
-      </li>
+      </motion.li>
     </ul>
   );
 }

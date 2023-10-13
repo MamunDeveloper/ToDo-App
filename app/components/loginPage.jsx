@@ -14,9 +14,24 @@ import Link from "next/link";
 function LoginPage({ showingLoginPage, toggleLogin }) {
   const [showPassword, setShowPassword] = useState(false);
 
+  // For taking user information
+  const initialUser = { email: "", password: "" };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState(initialUser);
+
   function handleSubmit(e) {
     e.preventDefault();
-    toggleLogin();
+    if (email === "" || password === "") {
+    } else {
+      setUser((user.email = email), (user.password = password));
+      console.log(user);
+
+      setUser(initialUser);
+      setEmail("");
+      setPassword("");
+      toggleLogin();
+    }
   }
 
   return (
@@ -33,12 +48,14 @@ function LoginPage({ showingLoginPage, toggleLogin }) {
           >
             <form>
               <input
-                type="text"
-                className={style.inps}
-                name=""
-                id=""
+                type="email"
                 placeholder="Enter your email"
                 autoComplete="Email"
+                className={style.inps}
+                id=""
+                name=""
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <FontAwesomeIcon
                 className={style.login_form_icons}
@@ -46,11 +63,13 @@ function LoginPage({ showingLoginPage, toggleLogin }) {
               ></FontAwesomeIcon>
               <input
                 type={showPassword ? "text" : "password"}
-                className={style.inps}
-                name=""
-                id="password_inp"
                 placeholder="Enter your password"
                 autoComplete="current-passwordff"
+                className={style.inps}
+                id="password_inp"
+                name=""
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
               <FontAwesomeIcon
